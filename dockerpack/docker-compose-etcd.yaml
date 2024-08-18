@@ -1,0 +1,31 @@
+services:
+  etcd:
+    command:
+      - "/usr/local/bin/etcd"
+      - "-advertise-client-urls"
+      - "http://0.0.0.0:2379"
+      - "-listen-client-urls"
+      - "http://0.0.0.0:2379"
+      - "-initial-advertise-peer-urls"
+      - "http://0.0.0.0:2380"
+      - "-listen-peer-urls"
+      - "http://0.0.0.0:2380"
+      - "-initial-cluster"
+      - "default=http://0.0.0.0:2380"
+    container_name: "etcd"
+    environment:
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    hostname: "19add0a044fa"
+    image: "quay.io/coreos/etcd:v3.5.0"
+    ipc: "private"
+    logging:
+      driver: "json-file"
+      options: {}
+    mac_address: "02:42:ac:11:00:04"
+    network_mode: "bridge"
+    ports:
+      - "2379:2379/tcp"
+      - "2380:2380/tcp"
+    restart: "always"
+    working_dir: "/"
+version: "3.6"

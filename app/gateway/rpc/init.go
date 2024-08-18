@@ -53,6 +53,7 @@ func connectServer(serviceName string) (conn *grpc.ClientConn, err error) {
 	opts := []grpc.DialOption{
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	}
+	// serviceName  etcd:///user，etcd:///task
 	addr := fmt.Sprintf("%s:///%s", Register.Scheme(), serviceName)
 	// 开启 load balance
 	if config.Conf.Services[serviceName].LoadBalance {

@@ -13,6 +13,7 @@ import (
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
+// 创建 etcd 服务注册对象 --> 创建租约 --> 为kv绑定租约 --> 获取续租通道 --> 开启协程通过续租通道来持续续租
 type Register struct {
 	EtcdAddrs   []string
 	DialTimeout int

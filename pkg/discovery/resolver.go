@@ -9,12 +9,19 @@ import (
 	"google.golang.org/grpc/resolver"
 )
 
+/*
+	@todo
+	1. 不太会用 etcd，但是感觉这个 Resolver，有点问题，当 task、user 启动后，会把 cli、keyPrefix、cc、srvAddrsList 冲掉，感觉有点不太对的样子，但是能运行
+	2. 可以简单参考这篇文章的使用方法：https://blog.csdn.net/weixin_46878177/article/details/130187019
+*/
+
 const (
 	schema = "etcd"
 )
 
 // Resolver for grpc client
 // 首先实现了一个命名解析器：Resolver。实现了 Builder（Build()、Scheme()） 和 Resolver（ResolveNow()、Close()） 接口
+// 服务发现：创建etcd服务发现对象 --> 根据prefix读取etcd服务端的kv到本地map --> 开启协程持续监听kv的变化并更新本地kv
 type Resolver struct {
 	schema      string
 	EtcdAddrs   []string
